@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Profile of {{ user.name }}</h2>
+    <p>Branch: {{ user.branch_name }}</p>
+    <p>Mobile: {{ user.mobile }}</p>
+    <p>Email: {{ user.email }}</p>
+
+    <h3>Add Transaction</h3>
+    <form method="POST" action="{{ url_for('add_transaction', user_id=user.id) }}">
+        <label for="from_account">From Account:</label>
+        <input type="text" id="from_account" name="from_account"><br>
+        <label for="to_account">To Account:</label>
+        <input type="text" id="to_account" name="to_account"><br>
+        <label for="remarks">Remarks:</label>
+        <input type="text" id="remarks" name="remarks"><br>
+        <button type="submit">Add</button>
+    </form>
+
+    <h3>Transactions</h3>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.from_account }} -> {{ transaction.to_account }}: {{ transaction.remarks }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
